@@ -37,7 +37,7 @@
                 $scope.customers = customers
             }).error(function(data, status, headers, config) {
                 //handle error
-                $log.log('');
+                $log.log(data.error + ' ' + status);
             })
         }
         init()
@@ -45,6 +45,35 @@
             $scope.sortBy = propName
             $scope.rev = !$scope.rev
         }
+        $scope.deleteCustomer = function(propName){
+            customersFactory.deleteCustomer(customerId)
+            .success(function(status){
+                if(status){
+                    for(var i =0; i<$scope.customers.length; i++){
+                        if($scope.customers[i].id === customerId){
+                            $scope.customers.splic(i,1);
+                            break;
+                        }
+                    }
+                }
+                else {
+                    $window.alert('Unable to delete customer')
+                }
+            })
+            .error(function(data, status, headers, config){
+                //show error
+            })
+        }
     }
     angular.module('customersApp').controller('CustomersController', CustomersController)
 }());
+
+
+
+
+
+
+
+
+
+

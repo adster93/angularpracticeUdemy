@@ -7,6 +7,9 @@
         factory.getCustomer = function(customerId) {
             return $http.get('http://localhost:3000/customers/' + customerId)
         }
+        factory.deleteCustomer = function(customerId){
+            return $http.delete('/customers/' + customerId)
+        }
         return factory;
     }
     angular.module('customersApp').factory('customersFactory', customersFactory)
